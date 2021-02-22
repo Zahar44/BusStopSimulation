@@ -143,6 +143,7 @@
     <ClCompile Include="Human.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DayTime.h" />
     <ClInclude Include="Human.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
