@@ -27,6 +27,12 @@
     <ClCompile Include="Arr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BusStation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gotoxy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Human.h">
@@ -39,6 +45,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Arr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BusStation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gotoxy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
