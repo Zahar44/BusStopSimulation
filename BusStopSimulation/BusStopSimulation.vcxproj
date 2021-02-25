@@ -143,6 +143,7 @@
     <ClCompile Include="Bus.cpp" />
     <ClCompile Include="BusStation.cpp" />
     <ClCompile Include="BusStopSimulation.cpp" />
+    <ClCompile Include="Emulator.cpp" />
     <ClCompile Include="gotoxy.cpp" />
     <ClCompile Include="Human.cpp" />
   </ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="Bus.h" />
     <ClInclude Include="BusStation.h" />
     <ClInclude Include="DayTime.h" />
+    <ClInclude Include="Emulator.h" />
     <ClInclude Include="gotoxy.h" />
     <ClInclude Include="Human.h" />
   </ItemGroup>
