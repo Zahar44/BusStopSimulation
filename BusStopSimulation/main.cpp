@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 	catch (const std::exception& ex)
 	{
 		std::cout << "Config file is not opened!\n"
-			<< ex.what()
+			<< "Error: " << ex.what()
 			<< "\nDefault settings will be set.\n";
 		settings.clear();
 		_getch();

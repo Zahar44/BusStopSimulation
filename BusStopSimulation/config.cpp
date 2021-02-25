@@ -29,11 +29,17 @@ bool blank(std::string& line)
 VarValue getVarValue(std::string& _str)
 {
 	VarValue res;
-	size_t i = 0;
-	for (; _str[i] != '=' && i < _str.length(); i++)
-		res.first += _str[i];
-	for (i++; i < _str.length(); i++)
-		res.second += _str[i];
+	bool first = true;
+	
+	for (size_t i = 0; i < _str.length(); i++)
+	{
+		if (_str[i] == ' ')
+			continue;
+		if (_str[i] == '=') {
+			first = false; continue;
+		}
+		first ? res.first += _str[i] : res.second += _str[i];
+	}
 	if (res.first == "" || res.second == "")
 		throw std::exception("Incorrect settings in config file");
 	return res;
