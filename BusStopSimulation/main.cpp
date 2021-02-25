@@ -11,7 +11,7 @@ int main()
 	emulate.addBusStation(*(new BusStation()));
 	emulate.addBusStation(*(new BusStation()));
 	emulate.addBusStation(*(new BusStation()));
-
+	 
 	while (true)
 	{
 		std::cout << " ";
