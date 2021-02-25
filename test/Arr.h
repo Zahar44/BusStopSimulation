@@ -30,3 +30,4 @@ public:
 	size_t size() const { return _size; }
 	T& operator[] (int id);
 };
+

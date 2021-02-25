@@ -1,18 +1,16 @@
 #include "Arr.h"
 #include "Human.h"
-#include "Bus.h"
-#include "BusStation.h"
 
-template <class T>
+template <class T> 
 Arr<T>::Arr() : head(nullptr), tail(nullptr), _size(0)
 {
 }
-template <class T>
+template <class T> 
 Arr<T>::Arr(const T& obj) : Arr()
 {
 	push_back(obj);
 }
-template <class T>
+template <class T> 
 Arr<T>::~Arr()
 {
 	if (head == nullptr)
@@ -28,7 +26,7 @@ Arr<T>::~Arr()
 	tail = nullptr;
 }
 
-template <class T>
+template <class T> 
 Arr<T>::Node<T>* Arr<T>::getNode(size_t id)
 {
 	if (id >= _size)
@@ -57,7 +55,7 @@ Arr<T>::Node<T>* Arr<T>::getNode(size_t id)
 	}
 	return tmp;
 }
-template <class T>
+template <class T> 
 void Arr<T>::push_back(const T& obj)
 {
 	if (!_size)
@@ -66,7 +64,7 @@ void Arr<T>::push_back(const T& obj)
 		tail = tail->next = new Node<T>{ obj, nullptr, tail };
 	_size++;
 }
-template <class T>
+template <class T> 
 void Arr<T>::push_front(const T& obj)
 {
 	if (head == nullptr)
@@ -75,7 +73,7 @@ void Arr<T>::push_front(const T& obj)
 		head = head->prev = new Node<T>{ obj, head, nullptr };
 	_size++;
 }
-template <class T>
+template <class T> 
 void Arr<T>::insert(size_t ind, const T& obj)
 {
 	if (!ind)
@@ -90,7 +88,7 @@ void Arr<T>::insert(size_t ind, const T& obj)
 	node->prev->next = node;
 
 }
-template <class T>
+template <class T> 
 void Arr<T>::erase(size_t ind)
 {
 	Node<T>* node = getNode(ind);
@@ -118,16 +116,9 @@ void Arr<T>::erase(size_t ind)
 	_size--;
 	delete node;
 }
-template <class T>
+template <class T> 
 T& Arr<T>::operator[] (int id)
 {
 	return getNode(id)->value;
 }
 
-template class Arr<Human>;
-template class Arr<Bus>;
-template class Arr<BusStation>;
-
-template class Arr<int>;
-template class Arr<double>; 
-template class Arr<bool>;

@@ -1,5 +1,6 @@
 #pragma once
-#include "BusStation.h"
+#include"BusStation.h"
+
 class Emulator
 {
 private:
@@ -26,4 +27,5 @@ public:
 
 	void operator()();
 };
+
 

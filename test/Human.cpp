@@ -1,10 +1,10 @@
 #include "Human.h"
 
 Human::Human()
-	{
-		id = ++idCnt;
-		waitingTime = 0;
-	}
+{
+	id = ++idCnt;
+	waitingTime = 0;
+}
 
 size_t Human::getTime() const { return waitingTime; }
 

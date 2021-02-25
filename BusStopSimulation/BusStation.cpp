@@ -1,27 +1,24 @@
 #include "BusStation.h"
-class BusStation
+#include <iostream>
+
+BusStation::BusStation()
 {
-private:
-	size_t id;
-	static size_t idCnt;
+	id = ++idCnt;
+	avrWaitingTime = 0;
+}
 
-	Arr<int> busAtStation;
-	Arr<Human> humans;
-
-	double avrWaitingTime;
-
-	size_t getBusesThatBeforeThisStation(Arr<Bus>& buses)
+size_t BusStation::getBusesThatBeforeThisStation(Arr<Bus>& buses)
+{
+	size_t res = 0;
+	for (size_t i = 0; i < buses.size(); i++)
 	{
-		size_t res = 0;
-		for (size_t i = 0; i < buses.size(); i++)
-		{
-			if (busAtStation[i] < id)
-				res++;
-		}
-		return res;
+		if (busAtStation[i] < id)
+			res++;
 	}
+	return res;
+}
 
-	void setBuses(Arr<Bus>& buses)
+void BusStation::setBuses(Arr<Bus>& buses)
 	{
 		for (size_t i = 0; i < buses.size(); i++)
 		{
@@ -31,13 +28,13 @@ private:
 				busAtStation[i] = buses[i].getCurrentStation();
 		}
 	}
-	void tryAddSubjects(DayTime dayTime)
+void BusStation::tryAddSubjects(DayTime dayTime)
 	{
 		size_t chanse = rand() % 100;
 		if (chanse <= Human::getBecomeChanse(dayTime))
 			humans.push_back(*(new Human()));
 	}
-	void tryMoveSubjects(Arr<Bus>& buses)
+void BusStation::tryMoveSubjects(Arr<Bus>& buses)
 	{
 		for (size_t i = 0; i < buses.size(); i++)
 		{
@@ -63,7 +60,7 @@ private:
 		}
 	}
 
-	void updateTime(Arr<Bus>& buses)
+void BusStation::updateTime(Arr<Bus>& buses)
 	{
 		double tmp = 0;
 		for (size_t i = 0; i < humans.size(); i++)
@@ -80,7 +77,7 @@ private:
 				buses[i]++;
 		}
 	}
-	void clearScreen(Arr<Bus>& buses)
+void BusStation::clearScreen(Arr<Bus>& buses)
 	{
 		gotoxy(0, id * 4 + (getBusesThatBeforeThisStation(buses) * 2) - 1);
 		size_t busesAtThisStation = 0;
@@ -91,7 +88,7 @@ private:
 			std::cout << "                                                             " << '\n';
 		gotoxy(0, id * 4 + (getBusesThatBeforeThisStation(buses) * 2));
 	}
-	void info(Arr<Bus>& buses)
+void BusStation::info(Arr<Bus>& buses)
 	{
 		clearScreen(buses);
 		std::cout << "Bus stop #" << id << std::endl;
@@ -107,13 +104,7 @@ private:
 				else
 					continue;
 	}
-public:
-	BusStation()
-	{
-		id = ++idCnt;
-		avrWaitingTime = 0;
-	}
-	void emulate(Arr<Bus>& buses, DayTime dayTime)
+void BusStation::emulate(Arr<Bus>& buses, DayTime dayTime)
 	{
 		setBuses(buses);
 		updateTime(buses);
@@ -121,5 +112,5 @@ public:
 		tryAddSubjects(dayTime);
 		tryMoveSubjects(buses);
 	}
-};
+
 size_t BusStation::idCnt = 0;

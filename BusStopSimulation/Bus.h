@@ -1,6 +1,9 @@
 #pragma once
+#include "Arr.h"
 #include "Human.h"
+
 #define BUS_MAX_SEATS 30
+
 class Bus
 {
 private:
@@ -17,25 +20,24 @@ private:
 	void setSeats();
 public:
 	Bus();
-
-	Arr<Human>& human();
+	Arr<Human>& human() { return seats; }
 	void addHuman(const Human& h);
 
-	size_t getFreeSeats();
-	size_t getStopTime();
-	void setStopTime(size_t newTime);
-	int getCurrentStation();
-	void setCurrentStation(int newValue);
+	size_t getFreeSeats() { return BUS_MAX_SEATS - seats.size(); }
+	size_t getStopTime() { return stopTime; }
+	void setStopTime(size_t newTime) { stopTime = newTime; }
 
-	static void setBecomeChanse(size_t avrTime, DayTime dayTime);
-	static size_t getBecomeChanse(DayTime dayTime);
+	int getCurrentStation() { return currentStation; }
+	void setCurrentStation(int newValue) { this->currentStation = newValue; }
 
-	bool operator==(size_t val);
-	void operator++(int);
+	static void setBecomeChanse(size_t avrTime, DayTime dayTime) { 
+		becomeChanse[(size_t)dayTime] = ((double)1 / (double)avrTime) * 100;
+	}
+	static size_t getBecomeChanse(DayTime dayTime) { return becomeChanse[(size_t)dayTime]; }
+
+	bool operator==(size_t val) { return currentStation == val; }
+	void operator++(int) { this->stopTime++; }
 	void operator=(const Bus& b);
 	friend std::ostream& operator<<(std::ostream& os, const Bus& obj);
 };
-size_t Bus::idCnt = 0;
-size_t Bus::becomeChanse[(size_t)DayTime::end] = {};
 std::ostream& operator<<(std::ostream& os, const Bus& obj);
-

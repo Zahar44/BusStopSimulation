@@ -1,6 +1,6 @@
 #pragma once
-#include "Bus.h"
 #include "Arr.h"
+#include "Bus.h"
 #include "gotoxy.h"
 
 #define CHANSE_THAT_HUMAN_SEAT_TO_BUS 20
@@ -30,4 +30,5 @@ public:
 	BusStation();
 	void emulate(Arr<Bus>& buses, DayTime dayTime);
 };
-size_t BusStation::idCnt = 0;
+
+

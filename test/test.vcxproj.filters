@@ -15,29 +15,23 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Arr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Human.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Bus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Arr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BusStation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="gotoxy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Emulator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Arr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Human.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,18 +39,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bus.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Arr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BusStation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gotoxy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Emulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
