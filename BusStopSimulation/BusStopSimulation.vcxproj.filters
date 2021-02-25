@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Foo">
+      <UniqueIdentifier>{679d935d-4cc4-4e7a-879e-97b63c61318e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Foo">
+      <UniqueIdentifier>{fe5fcb9e-aea1-4423-b852-5d5584ac3ec4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Human.cpp">
@@ -27,14 +33,17 @@
     <ClCompile Include="BusStation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gotoxy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Emulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp">
+      <Filter>Source Files\Foo</Filter>
+    </ClCompile>
+    <ClCompile Include="gotoxy.cpp">
+      <Filter>Source Files\Foo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,11 +62,19 @@
     <ClInclude Include="BusStation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gotoxy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Emulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gotoxy.h">
+      <Filter>Header Files\Foo</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>Header Files\Foo</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="config.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

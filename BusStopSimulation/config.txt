@@ -1,0 +1,4 @@
+speed=100
+busCnt=3
+//Buses routes
+Bus1=[1,2,3]
