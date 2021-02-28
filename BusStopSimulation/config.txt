@@ -7,4 +7,7 @@ busstation amount=2
 //Human avr become time
 Human chanse = [5,7,10,15]
 //Buses routes
-Bus1={[1,2,3], 3, 3}
+Bus1={[1,2,3], 1, 3}
+Bus2={[1,2,3], 1, 3}
+Bus3={[1,2,3], 1, 3}
+Bus4={[1,2,3], 1, 3}

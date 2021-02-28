@@ -144,7 +144,7 @@ void Configurator::setConfig()
 					if (buses.find(index) == buses.end())
 						buses.insert(
 							std::pair<int, std::pair<Arr<Bus>, size_t>>(
-								1,
+								index,
 								std::pair<Arr<Bus>, size_t>(*(new Bus(route)), interval))
 						);
 					else
