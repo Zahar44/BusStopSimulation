@@ -1,15 +1,19 @@
 #pragma once
-#include"BusStation.h"
+#include "EmulatorBase.h"
+#include "Configurator.h"
+#include <map>
 
-class Emulator
+class Emulator : public EmulatorBase
 {
 private:
 	Arr<BusStation> busStations;
-	Arr<Bus> buses;
+	Buses buses;
 	size_t avrWaitingTime;
 
 	DayTime dayTime;
 	size_t hour;
+
+	int speed;
 
 	void tryAddBus();
 	void checkForLastStation();
@@ -18,11 +22,9 @@ private:
 	std::string getDayPeriodInStr();
 	double getRecomendedTime();
 	void dayInfo();
-
-	void inputs();
 public:
 	Emulator();
-	Emulator(Arr<BusStation>& arr);
+	Emulator(Configurator conf);
 	void addBusStation(const BusStation& bs);
 
 	void operator()();

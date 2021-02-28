@@ -1,0 +1,10 @@
+//ms for tick
+spEed = 100
+//start hour simulation
+hour = 1
+//
+busstation amount=2
+//Human avr become time
+Human chanse = [5,7,10,15]
+//Buses routes
+Bus1={[1,2,3], 3, 3}

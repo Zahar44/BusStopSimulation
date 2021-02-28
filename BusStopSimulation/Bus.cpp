@@ -2,12 +2,13 @@
 #include <stdlib.h>
 #include <iostream>
 
-Bus::Bus()
+Bus::Bus(const Arr<int>& _route)
 {
 	setSeats();
 	id = ++idCnt;
 	stopTime = 0;
 	currentStation = 1;
+	route = _route;
 }
 void Bus::setSeats()
 {
@@ -27,7 +28,6 @@ void Bus::operator=(const Bus& b)
 }
 
 size_t Bus::idCnt = 0;
-size_t Bus::becomeChanse[(size_t)DayTime::end] = {};
 
 std::ostream& operator<<(std::ostream& os, const Bus& obj)
 {
