@@ -17,7 +17,6 @@ size_t BusStation::getBusesThatBeforeThisStation(Arr<Bus>& buses)
 	}
 	return res;
 }
-
 void BusStation::setBuses(Arr<Bus>& buses)
 	{
 		for (size_t i = 0; i < buses.size(); i++)

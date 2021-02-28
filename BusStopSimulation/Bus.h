@@ -9,17 +9,17 @@ class Bus
 private:
 	Arr<Human> seats;
 
-	static size_t becomeChanse[(size_t)DayTime::end];
-
 	size_t stopTime;
 	int currentStation;
+
+	Arr<int> route;
 
 	static size_t idCnt;
 	size_t id;
 
 	void setSeats();
 public:
-	Bus();
+	Bus(const Arr<int>& _route);
 	Arr<Human>& human() { return seats; }
 	void addHuman(const Human& h);
 
@@ -30,10 +30,10 @@ public:
 	int getCurrentStation() { return currentStation; }
 	void setCurrentStation(int newValue) { this->currentStation = newValue; }
 
-	static void setBecomeChanse(size_t avrTime, DayTime dayTime) { 
-		becomeChanse[(size_t)dayTime] = ((double)1 / (double)avrTime) * 100;
+	Arr<int>& getRoute() { return route; }
+	void setRoute(const Arr<int>& _route) {
+		route = _route;
 	}
-	static size_t getBecomeChanse(DayTime dayTime) { return becomeChanse[(size_t)dayTime]; }
 
 	bool operator==(size_t val) { return currentStation == val; }
 	void operator++(int) { this->stopTime++; }

@@ -39,11 +39,14 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="config.cpp">
+    <ClCompile Include="stuff.cpp">
       <Filter>Source Files\Foo</Filter>
     </ClCompile>
-    <ClCompile Include="gotoxy.cpp">
-      <Filter>Source Files\Foo</Filter>
+    <ClCompile Include="Configurator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EmulatorBase.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,11 +68,14 @@
     <ClInclude Include="Emulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gotoxy.h">
+    <ClInclude Include="stuff.h">
       <Filter>Header Files\Foo</Filter>
     </ClInclude>
-    <ClInclude Include="config.h">
-      <Filter>Header Files\Foo</Filter>
+    <ClInclude Include="Configurator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EmulatorBase.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

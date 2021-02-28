@@ -142,20 +142,22 @@
     <ClCompile Include="Arr.cpp" />
     <ClCompile Include="Bus.cpp" />
     <ClCompile Include="BusStation.cpp" />
-    <ClCompile Include="config.cpp" />
+    <ClCompile Include="Configurator.cpp" />
+    <ClCompile Include="EmulatorBase.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Emulator.cpp" />
-    <ClCompile Include="gotoxy.cpp" />
+    <ClCompile Include="stuff.cpp" />
     <ClCompile Include="Human.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arr.h" />
     <ClInclude Include="Bus.h" />
     <ClInclude Include="BusStation.h" />
-    <ClInclude Include="config.h" />
+    <ClInclude Include="Configurator.h" />
+    <ClInclude Include="EmulatorBase.h" />
     <ClInclude Include="DayTime.h" />
     <ClInclude Include="Emulator.h" />
-    <ClInclude Include="gotoxy.h" />
+    <ClInclude Include="stuff.h" />
     <ClInclude Include="Human.h" />
   </ItemGroup>
   <ItemGroup>

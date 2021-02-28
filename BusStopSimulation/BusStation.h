@@ -1,7 +1,7 @@
 #pragma once
 #include "Arr.h"
 #include "Bus.h"
-#include "gotoxy.h"
+#include "stuff.h"
 
 #define CHANSE_THAT_HUMAN_SEAT_TO_BUS 20
 #define TIME_WITCH_BUS_WAIT_AT_STATION 5
