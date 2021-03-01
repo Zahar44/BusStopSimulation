@@ -12,21 +12,44 @@ Emulator::Emulator(Configurator conf)
 	hour  = conf.getHour();
 	busStations = conf.getBusStation();
 	buses = conf.getBuses();
+	for (size_t i = 1; i <= buses.size(); i++)
+		lastBusOnRoute[i] = 0;
 	Human::setBecomeChanse(conf.getHumanChanse());
 }
 
-void Emulator::tryAddBus()
+void Emulator::moveBus()
 {
-
+	for (size_t i = 0; i < buses.size(); i++)  //route
+	{
+		for (size_t j = lastBusOnRoute[i + 1]; j < buses[i + 1].first.size(); j++)  //bus on route
+		{
+			if (buses[i + 1].first[j].getStopTime() < TIME_WITCH_BUS_WAIT_AT_STATION)
+				buses[i + 1].first[j].setStopTime(buses[i + 1].first[j].getStopTime() + 1);
+			else {
+				buses[i + 1].first[j].goToNextStation();
+				buses[i + 1].first[j].setStopTime(0);
+			}
+		}
+	}
+		
 }
-void Emulator::checkForLastStation()
+void Emulator::provideBusStations()
 {
-	for (size_t i = 0; i < buses.size(); i++)
-		if (buses[1].first[i].getCurrentStation() == busStations.size() + 1)
-			buses.erase(i);
+	Arr<Bus*> tmp;
+	for (size_t i = 0; i < busStations.size(); i++)
+	{
+		for (size_t j = 1; j <= buses.size(); j++)					//find all buses that must be at this station
+			for (size_t c = 0; c < buses[j].first.size(); c++)
+				if ((buses[j].first[c].getCurrentStation() - 1) == i)
+					tmp.push_back(&buses[j].first[c]);
+
+		busStations[i].emulate(tmp, dayTime);	//emulate station
+	}
 }
 void Emulator::setDayTime()
 {
+	if (++hour == 25)
+		hour = 1;
 	switch (hour)
 	{
 	case 6:
@@ -44,6 +67,13 @@ void Emulator::setDayTime()
 	default:
 		break;
 	}
+}
+
+void Emulator::nextTick()
+{
+	Sleep(speed);
+	std::cout << " ";
+	system("cls");
 }
 
 std::string Emulator::getDayPeriodInStr()
@@ -89,6 +119,7 @@ double Emulator::getRecomendedTime()
 }
 void Emulator::dayInfo()
 {
+	SetConsoleTextAttribute(hConsole, 15);
 	gotoxy(0, 0);
 	for (size_t i = 0; i < 3; i++)
 		std::cout << "                                                           ";
@@ -106,13 +137,7 @@ void Emulator::operator()()
 {
 	setDayTime();
 	dayInfo();
-	tryAddBus();
-	for (size_t i = 0; i < busStations.size(); i++)
-		busStations[i].emulate(buses[1].first, dayTime);
-	checkForLastStation();
-	if (++hour == 25)
-		hour = 1;
-	Sleep(speed);
-	std::cout << " ";
-	system("cls");
+	moveBus();
+	provideBusStations();
+	nextTick();
 }

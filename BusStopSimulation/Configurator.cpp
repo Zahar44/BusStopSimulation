@@ -145,10 +145,10 @@ void Configurator::setConfig()
 						buses.insert(
 							std::pair<int, std::pair<Arr<Bus>, size_t>>(
 								index,
-								std::pair<Arr<Bus>, size_t>(*(new Bus(route)), interval))
+								std::pair<Arr<Bus>, size_t>(*(new Bus(route, index)), interval))
 						);
 					else
-						buses[index].first.push_back(*(new Bus(route)));
+						buses[index].first.push_back(*(new Bus(route, index)));
 			}(i);
 			break;
 		default:
