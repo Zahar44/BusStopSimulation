@@ -30,7 +30,7 @@ public:
 	int getSpeed()						{ return speed; }
 	int getHour()						{ return hour; }
 	size_t* getHumanChanse()			{ return humanChanse; }
-	Buses& getBuses()					{ return buses; }
+	Route& getRoutes()					{ return routes; }
 	Arr<BusStation>& getBusStation()	{ return busStations; }
 };
 

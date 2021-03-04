@@ -10,8 +10,7 @@ int main(int argc, char* argv[])
 	Configurator conf;
 	try
 	{
-		if (argc > 1)
-			conf.setPath(argv[1]);
+		conf.setPath(argv[1]);
 	}
 	catch (const std::exception& ex)
 	{

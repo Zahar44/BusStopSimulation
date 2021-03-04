@@ -6,8 +6,11 @@
 class Emulator : public EmulatorBase
 {
 private:
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	
 	Arr<BusStation> busStations;
-	Buses buses;
+	Route routes;
+	std::map<size_t, size_t> lastBusOnRoute;
 	size_t avrWaitingTime;
 
 	DayTime dayTime;
@@ -15,9 +18,10 @@ private:
 
 	int speed;
 
-	void tryAddBus();
-	void checkForLastStation();
+	void moveBus();
+	void provideBusStations();
 	void setDayTime();
+	void nextTick();
 
 	std::string getDayPeriodInStr();
 	double getRecomendedTime();

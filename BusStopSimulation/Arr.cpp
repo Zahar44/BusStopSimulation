@@ -147,6 +147,7 @@ void Arr<T>::operator=(const Arr<T>& other)
 
 template class Arr<Human>;
 template class Arr<Bus>;
+template class Arr<Bus*>;
 template class Arr<BusStation>;
 
 template class Arr<int>;
