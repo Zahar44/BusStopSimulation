@@ -8,6 +8,17 @@ Human::Human()
 
 size_t Human::getTime() const { return waitingTime; }
 
+void Human::setBecomeChanse(size_t avrTime, DayTime dayTime)
+{
+	becomeChanse[(size_t)dayTime] = ((double)1 / (double)avrTime) * 100;
+}
+
+void Human::setBecomeChanse(size_t* _becomeChanse)
+{
+	for (size_t i = 0; i < (size_t)DayTime::end; i++)
+		Human::setBecomeChanse(_becomeChanse[i], (DayTime)i);
+}
+
 void Human::operator++(int)
 {
 	this->waitingTime++;

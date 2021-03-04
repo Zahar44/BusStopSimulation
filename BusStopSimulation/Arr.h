@@ -21,6 +21,7 @@ private:
 public:
 	Arr();
 	Arr(const T& obj);
+	Arr(const Arr<T>& other);
 	~Arr();
 
 	void push_back(const T& obj);
@@ -29,4 +30,5 @@ public:
 	void erase(size_t ind);
 	size_t size() const { return _size; }
 	T& operator[] (int id);
+	void operator=(const Arr<T>& other);
 };

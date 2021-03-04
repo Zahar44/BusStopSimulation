@@ -1,22 +1,33 @@
 ﻿#include "Emulator.h"
+#include "Configurator.h"
 
 #include <iostream>
-#include <Windows.h>
+#include <conio.h>
 
-int main()
+//Version 1.1
+
+int main(int argc, char* argv[])
 {
 	srand(time(NULL));
+  
+	Configurator conf;
+	try
+	{
+		conf.setPath(argv[1]);
+	}
+	catch (const std::exception& ex)
+	{
+		std::cout << "Config file is not opened!\n"
+			<< "Error: " << ex.what()
+			<< "\nDefault settings will be set.\n";
+		_getch();
+	}
+	
+	Emulator emulate(conf);
 
-	Emulator emulate;
-	emulate.addBusStation(*(new BusStation()));
-	emulate.addBusStation(*(new BusStation()));
-	emulate.addBusStation(*(new BusStation()));
-	 
 	while (true)
 	{
-		std::cout << " ";
-		system("cls");
 		emulate();
-		Sleep(1000);
 	}
 }
+

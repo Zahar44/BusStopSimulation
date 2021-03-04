@@ -1,28 +1,34 @@
 #pragma once
-#include"BusStation.h"
+#include "EmulatorBase.h"
+#include "Configurator.h"
+#include <map>
 
-class Emulator
+class Emulator : public EmulatorBase
 {
 private:
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	
 	Arr<BusStation> busStations;
-	Arr<Bus> buses;
+	Route routes;
+	std::map<size_t, size_t> lastBusOnRoute;
 	size_t avrWaitingTime;
 
 	DayTime dayTime;
 	size_t hour;
 
-	void tryAddBus();
-	void checkForLastStation();
+	int speed;
+
+	void moveBus();
+	void provideBusStations();
 	void setDayTime();
+	void nextTick();
 
 	std::string getDayPeriodInStr();
 	double getRecomendedTime();
 	void dayInfo();
-
-	void inputs();
 public:
 	Emulator();
-	Emulator(Arr<BusStation>& arr);
+	Emulator(Configurator conf);
 	void addBusStation(const BusStation& bs);
 
 	void operator()();

@@ -8,6 +8,16 @@ Arr<T>::Arr() : head(nullptr), tail(nullptr), _size(0)
 {
 }
 template <class T>
+Arr<T>::Arr(const Arr<T>& other) : Arr<T>::Arr()
+{
+	auto node = other.head;
+	while (node)
+	{
+		this->push_back(node->value);
+		node = node->next;
+	}
+}
+template <class T>
 Arr<T>::Arr(const T& obj) : Arr()
 {
 	push_back(obj);
@@ -26,6 +36,7 @@ Arr<T>::~Arr()
 	} while (tmp);
 	head = nullptr;
 	tail = nullptr;
+	_size = 0;
 }
 
 template <class T>
@@ -123,11 +134,23 @@ T& Arr<T>::operator[] (int id)
 {
 	return getNode(id)->value;
 }
+template <class T>
+void Arr<T>::operator=(const Arr<T>& other)
+{
+	auto node = other.head;
+	while (node)
+	{
+		this->push_back(node->value);
+		node = node->next;
+	}
+}
 
 template class Arr<Human>;
 template class Arr<Bus>;
+template class Arr<Bus*>;
 template class Arr<BusStation>;
 
 template class Arr<int>;
-template class Arr<double>; 
+template class Arr<double>;
+template class Arr<std::string>;
 template class Arr<bool>;

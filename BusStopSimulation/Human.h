@@ -14,9 +14,8 @@ public:
 
 	size_t getTime() const;
 
-	static void setBecomeChanse(size_t avrTime, DayTime dayTime) {
-		becomeChanse[(size_t)dayTime] = ((double)1 / (double)avrTime) * 100;
-	}
+	static void setBecomeChanse(size_t avrTime, DayTime dayTime);
+	static void setBecomeChanse(size_t* _becomeChanse);
 	static size_t getBecomeChanse(DayTime dayTime) { return becomeChanse[(size_t)dayTime]; }
 
 	void operator++(int);

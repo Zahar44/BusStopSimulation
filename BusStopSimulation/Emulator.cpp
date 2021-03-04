@@ -1,39 +1,55 @@
 #include "Emulator.h"
+#include "stuff.h"
 #include <iostream>
 #include <string>
+#include <conio.h>
+#include <math.h>
+#include <algorithm>
 
-Emulator::Emulator() : avrWaitingTime(0), hour(1)
+Emulator::Emulator() : EmulatorBase() {}
+Emulator::Emulator(Configurator conf)
 {
-	setDayTime();
-	Bus::setBecomeChanse(10, DayTime::morning);
-	Bus::setBecomeChanse(15, DayTime::noonday);
-	Bus::setBecomeChanse(20, DayTime::evening);
-	Bus::setBecomeChanse(25, DayTime::night);
-
-	Human::setBecomeChanse(5, DayTime::morning);
-	Human::setBecomeChanse(7, DayTime::noonday);
-	Human::setBecomeChanse(10, DayTime::evening);
-	Human::setBecomeChanse(15, DayTime::night);
-}
-Emulator::Emulator(Arr<BusStation>& arr) : Emulator()
-{
-	busStations = arr;
+	speed = conf.getSpeed();
+	hour  = conf.getHour();
+	busStations = conf.getBusStation();
+	routes = conf.getRoutes();
+	for (size_t i = 1; i <= routes.size(); i++)
+		lastBusOnRoute[i] = 0;
+	Human::setBecomeChanse(conf.getHumanChanse());
 }
 
-void Emulator::tryAddBus()
+void Emulator::moveBus()
 {
-	size_t chanse = rand() % 100;
-	if (chanse < Bus::getBecomeChanse(dayTime))
-		buses.push_back(*(new Bus()));
+	std::for_each(routes.begin(), routes.end(), [&](std::pair<const int, std::pair<Arr<Bus>, size_t>>& el) //each route
+		{
+			for (size_t j = lastBusOnRoute[el.first]; j < el.second.first.size(); j++)  //bus on route
+			{
+				if (el.second.first[j].getStopTime() < TIME_WITCH_BUS_WAIT_AT_STATION)
+					el.second.first[j].setStopTime(el.second.first[j].getStopTime() + 1);
+				else {
+					el.second.first[j].goToNextStation();
+					el.second.first[j].setStopTime(0);
+				}
+			}
+		});
 }
-void Emulator::checkForLastStation()
+void Emulator::provideBusStations()
 {
-	for (size_t i = 0; i < buses.size(); i++)
-		if (buses[i].getCurrentStation() == busStations.size() + 1)
-			buses.erase(i);
+	Arr<Bus*> tmp;
+	for (size_t i = 0; i < busStations.size(); i++)
+	{
+		for (size_t j = 1; j <= routes.size(); j++)					//find all buses that must be at this station
+			for (size_t c = 0; c < routes[j].first.size(); c++)
+				if ((routes[j].first[c].getCurrentStation() - 1) == i)
+					tmp.push_back(&routes[j].first[c]);
+
+		busStations[i].emulate(tmp, busStations.size(), dayTime);	//emulate station
+	}
 }
 void Emulator::setDayTime()
 {
+	if (++hour == 25)
+		hour = 1;
 	switch (hour)
 	{
 	case 6:
@@ -51,6 +67,13 @@ void Emulator::setDayTime()
 	default:
 		break;
 	}
+}
+
+void Emulator::nextTick()
+{
+	Sleep(speed);
+	std::cout << " ";
+	system("cls");
 }
 
 std::string Emulator::getDayPeriodInStr()
@@ -75,7 +98,7 @@ std::string Emulator::getDayPeriodInStr()
 }
 double Emulator::getRecomendedTime()
 {
-	double timeBetweenBuses = (double)1 / (double)Bus::getBecomeChanse(dayTime) * 100;
+	double timeBetweenBuses = 10;//(double)1 / (double)Bus::getBecomeChanse(dayTime) * 100;
 	double timeBetweenHumans = (double)1 / (double)Human::getBecomeChanse(dayTime) * 100;
 
 	double humansForOneBus = timeBetweenBuses / timeBetweenHumans;
@@ -96,44 +119,14 @@ double Emulator::getRecomendedTime()
 }
 void Emulator::dayInfo()
 {
+	SetConsoleTextAttribute(hConsole, 15);
 	gotoxy(0, 0);
 	for (size_t i = 0; i < 3; i++)
 		std::cout << "                                                           ";
 	gotoxy(0, 0);
 	std::cout << "Current day period is: " << getDayPeriodInStr() << ", hour: " << hour << std::endl
-		<< "Bus appearance chanse: " << Bus::getBecomeChanse(dayTime) << ", Human appearance chanse: " << Human::getBecomeChanse(dayTime) << std::endl
+		<< "Human appearance chanse: " << Human::getBecomeChanse(dayTime) << std::endl
 		<< "Recomended time between buses: " << getRecomendedTime();
-}
-void Emulator::inputs()
-{
-	size_t c;
-	std::cout << "Average time between appearances for bus:" << '\n';
-	std::cout << "Morning: ";
-	std::cin >> c;
-	Bus::setBecomeChanse(c, DayTime::morning);
-	std::cout << "Noonday: ";
-	std::cin >> c;
-	Bus::setBecomeChanse(c, DayTime::noonday);
-	std::cout << "Evening: ";
-	std::cin >> c;
-	Bus::setBecomeChanse(c, DayTime::evening);
-	std::cout << "Night: ";
-	std::cin >> c;
-	Bus::setBecomeChanse(c, DayTime::night);
-
-	std::cout << "Average time between appearances for human:" << '\n';
-	std::cout << "Morning: ";
-	std::cin >> c;
-	Human::setBecomeChanse(c, DayTime::morning);
-	std::cout << "Noonday: ";
-	std::cin >> c;
-	Human::setBecomeChanse(c, DayTime::noonday);
-	std::cout << "Evening: ";
-	std::cin >> c;
-	Human::setBecomeChanse(c, DayTime::evening);
-	std::cout << "Night: ";
-	std::cin >> c;
-	Human::setBecomeChanse(c, DayTime::night);
 }
 void Emulator::addBusStation(const BusStation& bs)
 {
@@ -144,10 +137,7 @@ void Emulator::operator()()
 {
 	setDayTime();
 	dayInfo();
-	tryAddBus();
-	for (size_t i = 0; i < busStations.size(); i++)
-		busStations[i].emulate(buses, dayTime);
-	checkForLastStation();
-	if (++hour == 25)
-		hour = 1;
+	moveBus();
+	provideBusStations();
+	nextTick();
 }
