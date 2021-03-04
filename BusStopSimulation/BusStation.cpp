@@ -34,7 +34,7 @@ void BusStation::tryAddSubjects(DayTime dayTime)
 		if (chanse <= Human::getBecomeChanse(dayTime))
 			humans.push_back(*(new Human()));
 	}
-void BusStation::tryMoveSubjects(Arr<Bus*>& buses)
+void BusStation::tryMoveSubjects(Arr<Bus*>& buses, uint16_t busStationsAmount)
 	{
 		for (size_t i = 0; i < buses.size(); i++)
 		{
@@ -43,6 +43,13 @@ void BusStation::tryMoveSubjects(Arr<Bus*>& buses)
 			for (size_t j = 0; j < humans.size() && buses[i]->getFreeSeats(); j++)
 			{
 				size_t chanse = rand() % 100;
+				if(buses[i]->getStopTime() == 0)
+					for (size_t c = 0; c < buses[i]->getSeats(); c++)
+					{
+						size_t chanseForHuman = rand() % 100;
+						if (chanseForHuman < 100 / busStationsAmount)
+							buses[i]->human().erase(c);
+					}
 				if (chanse < CHANSE_THAT_HUMAN_SEAT_TO_BUS)
 				{
 					buses[i]->addHuman(humans[j]);
@@ -93,13 +100,13 @@ void BusStation::info(Arr<Bus*>& buses)
 			else
 				continue;
 }
-void BusStation::emulate(Arr<Bus*>& buses, DayTime dayTime)
+void BusStation::emulate(Arr<Bus*>& buses, uint16_t busStationsAmount, DayTime dayTime)
 {
 	setBuses(buses);
 	updateTime(buses);
 	info(buses);
 	tryAddSubjects(dayTime);
-	tryMoveSubjects(buses);
+	tryMoveSubjects(buses, busStationsAmount);
 }
 
 size_t BusStation::idCnt = 0;

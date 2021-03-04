@@ -9,7 +9,7 @@ private:
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	
 	Arr<BusStation> busStations;
-	Buses buses;
+	Route routes;
 	std::map<size_t, size_t> lastBusOnRoute;
 	size_t avrWaitingTime;
 

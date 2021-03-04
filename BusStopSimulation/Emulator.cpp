@@ -4,6 +4,7 @@
 #include <string>
 #include <conio.h>
 #include <math.h>
+#include <algorithm>
 
 Emulator::Emulator() : EmulatorBase() {}
 Emulator::Emulator(Configurator conf)
@@ -11,39 +12,38 @@ Emulator::Emulator(Configurator conf)
 	speed = conf.getSpeed();
 	hour  = conf.getHour();
 	busStations = conf.getBusStation();
-	buses = conf.getBuses();
-	for (size_t i = 1; i <= buses.size(); i++)
+	routes = conf.getRoutes();
+	for (size_t i = 1; i <= routes.size(); i++)
 		lastBusOnRoute[i] = 0;
 	Human::setBecomeChanse(conf.getHumanChanse());
 }
 
 void Emulator::moveBus()
 {
-	for (size_t i = 0; i < buses.size(); i++)  //route
-	{
-		for (size_t j = lastBusOnRoute[i + 1]; j < buses[i + 1].first.size(); j++)  //bus on route
+	std::for_each(routes.begin(), routes.end(), [&](std::pair<const int, std::pair<Arr<Bus>, size_t>>& el) //each route
 		{
-			if (buses[i + 1].first[j].getStopTime() < TIME_WITCH_BUS_WAIT_AT_STATION)
-				buses[i + 1].first[j].setStopTime(buses[i + 1].first[j].getStopTime() + 1);
-			else {
-				buses[i + 1].first[j].goToNextStation();
-				buses[i + 1].first[j].setStopTime(0);
+			for (size_t j = lastBusOnRoute[el.first]; j < el.second.first.size(); j++)  //bus on route
+			{
+				if (el.second.first[j].getStopTime() < TIME_WITCH_BUS_WAIT_AT_STATION)
+					el.second.first[j].setStopTime(el.second.first[j].getStopTime() + 1);
+				else {
+					el.second.first[j].goToNextStation();
+					el.second.first[j].setStopTime(0);
+				}
 			}
-		}
-	}
-		
+		});
 }
 void Emulator::provideBusStations()
 {
 	Arr<Bus*> tmp;
 	for (size_t i = 0; i < busStations.size(); i++)
 	{
-		for (size_t j = 1; j <= buses.size(); j++)					//find all buses that must be at this station
-			for (size_t c = 0; c < buses[j].first.size(); c++)
-				if ((buses[j].first[c].getCurrentStation() - 1) == i)
-					tmp.push_back(&buses[j].first[c]);
+		for (size_t j = 1; j <= routes.size(); j++)					//find all buses that must be at this station
+			for (size_t c = 0; c < routes[j].first.size(); c++)
+				if ((routes[j].first[c].getCurrentStation() - 1) == i)
+					tmp.push_back(&routes[j].first[c]);
 
-		busStations[i].emulate(tmp, dayTime);	//emulate station
+		busStations[i].emulate(tmp, busStations.size(), dayTime);	//emulate station
 	}
 }
 void Emulator::setDayTime()

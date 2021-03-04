@@ -85,7 +85,7 @@ int Configurator::checkSign(std::string& str)
 		return 3;
 	if (str == "humanchanse")
 		return 4;
-	if (str[0] == 'b' && str[1] == 'u' && str[2] == 's')
+	if (str[0] == 'r' && str[1] == 'o' && str[2] == 'u' && str[3] == 't' && str[4] == 'e')
 		return 5;
 	return 0;
 }
@@ -102,7 +102,7 @@ void Configurator::isConfigurate()
 		humanChanse[(size_t)DayTime::noonday] == 0 ||
 		humanChanse[(size_t)DayTime::night] == 0)
 		throw std::exception("Wrong human become time");
-	if (!buses.size())
+	if (!routes.size())
 		throw std::exception("Wrong buses input");
 }
 
@@ -132,23 +132,29 @@ void Configurator::setConfig()
 		case 5:
 			[&](size_t ii) {
 				values = toValue(conf[ii].second);
-				Arr<int> route;
-				int index = 0;
+				Arr<int> routeWay;
+				std::string index;
 				size_t interval = stoi(values[values.size() - 1]);
-				for (size_t j = 3; j < conf[ii].first.length(); j++)
-					index += (conf[ii].first[j] - '0') * (pow(10, (j - 3)));
+				for (size_t j = 5; j < conf[ii].first.length(); j++)
+					index += conf[ii].first[j];
 				size_t i = 0;
 				for (; values[i] != "]"; i++)
-					route.push_back(stoi(values[i]));
-				for (size_t j = 0; j < stoi(values[i + 1]); j++)
-					if (buses.find(index) == buses.end())
-						buses.insert(
+					routeWay.push_back(stoi(values[i]));
+				i++;
+				for (size_t j = 0; j < stoi(values[i]); j++)
+					if (routes.find(stoi(index)) == routes.end())
+						routes.insert(
 							std::pair<int, std::pair<Arr<Bus>, size_t>>(
-								index,
-								std::pair<Arr<Bus>, size_t>(*(new Bus(route, index)), interval))
+								stoi(index),
+								std::pair<Arr<Bus>, size_t>(*(new Bus(routeWay, stoi(index))), interval))
 						);
 					else
-						buses[index].first.push_back(*(new Bus(route, index)));
+						routes[stoi(index)].first.push_back(*(new Bus(routeWay, stoi(index))));
+				i++;
+				for (size_t j = 0; j < routes[stoi(index)].first.size(); j++)
+				{
+					routes[stoi(index)].first[j].setStopTime(j * -stoi(values[i]));
+				}
 			}(i);
 			break;
 		default:
