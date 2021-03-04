@@ -4,6 +4,8 @@
 #include <iostream>
 #include <conio.h>
 
+//Version 1.1
+
 int main(int argc, char* argv[])
 {
 	srand(time(NULL));
