@@ -7,6 +7,10 @@ BusStation::BusStation()
 	avrWaitingTime = 0;
 	color = 1 + rand() % 14;
 }
+BusStation::~BusStation()
+{
+	idCnt--;
+}
 
 size_t BusStation::getBusesThatBeforeThisStation(Arr<Bus*>& buses)
 {

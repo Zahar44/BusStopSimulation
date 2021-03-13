@@ -11,5 +11,4 @@ protected:
 	int hour;
 	Route routes;
 	Arr<BusStation> busStations;
-	EmulatorBase();
 };
