@@ -6,7 +6,6 @@
 #include <math.h>
 #include <algorithm>
 
-Emulator::Emulator() : EmulatorBase() {}
 Emulator::Emulator(Configurator conf)
 {
 	speed = conf.getSpeed();

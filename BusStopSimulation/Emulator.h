@@ -27,7 +27,6 @@ private:
 	double getRecomendedTime();
 	void dayInfo();
 public:
-	Emulator();
 	Emulator(Configurator conf);
 	void addBusStation(const BusStation& bs);
 

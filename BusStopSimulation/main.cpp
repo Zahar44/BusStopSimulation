@@ -21,6 +21,7 @@ int main(int argc, char* argv[])
 			<< "Error: " << ex.what()
 			<< "\nDefault settings will be set.\n";
 		_getch();
+		conf.setDefault();
 	}
 	
 	Emulator emulate(conf);

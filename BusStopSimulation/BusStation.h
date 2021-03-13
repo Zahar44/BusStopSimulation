@@ -31,6 +31,7 @@ private:
 	void info(Arr<Bus*>& buses);
 public:
 	BusStation();
+	~BusStation();
 	void emulate(Arr<Bus*>& buses, uint16_t busStationsAmount, DayTime dayTime);
 	size_t getId() { return id; }
 };
