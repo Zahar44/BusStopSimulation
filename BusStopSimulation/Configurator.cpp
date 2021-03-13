@@ -4,15 +4,56 @@
 #include <conio.h>
 
 Configurator::Configurator() {}
-Configurator::Configurator(const char* _PATH)
+Configurator::Configurator(const char* _PATH) : Configurator::Configurator()
 {
 	PATH = _PATH;
 	setConfig();
 }
-void Configurator::setPath(const char* _PATH)
+void Configurator::setPath(const char* _PATH) 
 {
 	PATH = _PATH;
 	setConfig();
+}
+
+void Configurator::setDefault()
+{
+	speed = 500;
+	hour = 1;
+
+	Human::setBecomeChanse(new size_t[]{ 1,7,10,15 });
+	busStations.~Arr();
+	for (size_t i = 0; i < 3; i++)
+		busStations.push_back(*(new BusStation()));
+
+	Arr<int> routeWay13;
+	routeWay13.push_back(1);
+	routeWay13.push_back(2);
+	routeWay13.push_back(3);
+	routes.clear();
+	routes.insert(
+		std::pair<int, std::pair<Arr<Bus>, size_t>>(
+			13,
+			std::pair<Arr<Bus>, size_t>(*(new Bus(routeWay13, 13)), 10))
+	);
+	routes[13].first.push_back(*(new Bus(routeWay13, 13)));
+	routes[13].first.push_back(*(new Bus(routeWay13, 13)));
+	for (size_t j = 0; j < routes[13].first.size(); j++)
+	{
+		routes[13].first[j].setStopTime(j * -10);
+	}
+
+	Arr<int> routeWay16;
+	routeWay16.push_back(1);
+	routeWay16.push_back(3);
+	routes.insert(
+		std::pair<int, std::pair<Arr<Bus>, size_t>>(
+			16,
+			std::pair<Arr<Bus>, size_t>(*(new Bus(routeWay16, 16)), 3))
+	);
+	for (size_t j = 0; j < routes[16].first.size(); j++)
+	{
+		routes[16].first[j].setStopTime(j * -10);
+	}
 }
 
 bool Configurator::blank(std::string& line)
@@ -89,7 +130,7 @@ int Configurator::checkSign(std::string& str)
 		return 5;
 	return 0;
 }
-void Configurator::isConfigurate()
+void Configurator::checkForConfigurate()
 {
 	if (speed < 0)
 		throw std::exception("Wrong speed value");
@@ -104,6 +145,24 @@ void Configurator::isConfigurate()
 		throw std::exception("Wrong human become time");
 	if (!routes.size())
 		throw std::exception("Wrong buses input");
+	std::for_each(routes.begin(), routes.end(), [&](std::pair<int, std::pair<Arr<Bus>, size_t>> el) {
+		//for (size_t i = 0; i < el.second.first.size(); i++) //every bus
+			for (size_t j = 0; j < el.second.first[0].getRoute().size(); j++) //every route
+			{
+				bool flag = true;
+				for (size_t c = 0; c < busStations.size(); c++) //every busStation
+					if (el.second.first[0].getRoute()[j] == busStations[c].getId())
+					{
+						flag = true;
+						break;
+					}
+					else
+						flag = false;
+				if (!flag)
+					throw std::exception("Wrong route");
+			}
+			
+		});
 }
 
 void Configurator::setConfig()
@@ -164,7 +223,7 @@ void Configurator::setConfig()
 	}
 	try
 	{
-		isConfigurate();
+		checkForConfigurate();
 	}
 	catch (const std::exception& ex)
 	{

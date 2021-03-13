@@ -19,13 +19,14 @@ private:
 	Settings getSettings();
 	
 	int checkSign(std::string& str); //only low chars
-	void isConfigurate();
+	void checkForConfigurate();
 
 	void setConfig();
 public:
 	Configurator();
 	Configurator(const char* _PATH);
 	void setPath(const char* _PATH);
+	void setDefault();
 
 	int getSpeed()						{ return speed; }
 	int getHour()						{ return hour; }
