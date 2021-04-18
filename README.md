@@ -28,3 +28,9 @@ If confog file seted wrong will be used default settings!
 
 # Simulation
 Here some photos from simulation:
+
+![image](https://user-images.githubusercontent.com/74359852/115146586-cc9b5000-a05f-11eb-8228-ba106375c06c.png)
+
+![image](https://user-images.githubusercontent.com/74359852/115146602-da50d580-a05f-11eb-919f-d2cb219685ea.png)
+
+In top section of the console setted information about curent status of simulation, belowe all bus stations with humans and buses. Inside of {} humans showed inforamtion about how log human wait for bus, it means that one number is one person. In {} of buses showed current amount of peoples in bus.  
